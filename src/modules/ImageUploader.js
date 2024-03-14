@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+//A Demo for uploading Product along with image
+
 const ImageUploader = () => {
 
   const [selectedImage, setSelectedImage] = useState(null);
