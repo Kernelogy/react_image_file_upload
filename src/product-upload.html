@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" enctype='multipart/form-data' onsubmit="addProduct(event)">
+        Name <input type="text" name="name"> <br>
+        Price <input type="text" name="price"> <br>
+        Desc <input type="text" name="description"> <br>
+        Image <input type="file" name="file">
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        const addProduct = (event) => {
+            
+            const product = new FormData();
+
+            product.append("name", event.target.name.value)
+            product.append("description", event.target.description.value)
+            product.append("price", event.target.price.value)
+            product.append("file", event.target.file.files[0])
+
+            fetch("http://localhost:8080/file/uploadProduct", {
+                method: 'POST',
+                body: product,
+                dataType: "jsonp"
+            })
+            .then(response => response.text())
+            .then(text => {
+                console.log(text)
+            })
+
+            event.preventDefault();
+        }
+    </script>
+</body>
+</html>
